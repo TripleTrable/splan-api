@@ -1,4 +1,5 @@
 #include <cerrno>
+#include <cstdio>
 #include <fcntl.h>
 #include <gtest/gtest.h>
 
@@ -34,9 +35,11 @@ TEST(iso8859_1_to_utf_8, correct_string) {
   char *iso_str = (char *)calloc(iso_stat.st_size + 1, sizeof(char));
   char *utf_str = (char *)calloc(utf_stat.st_size + 1, sizeof(char));
 
+  memcpy(iso_str,iso_map,iso_stat.st_size);
+  memcpy(utf_str,utf_map,utf_stat.st_size);
+
   char *result = iso8859_1_to_utf_8(iso_str);
 
-  ASSERT_STREQ(utf_str, iso_str);
   ASSERT_STREQ(result, utf_str);
 
   munmap(iso_map, iso_stat.st_size);
