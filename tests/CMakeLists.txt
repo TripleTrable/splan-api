@@ -1,30 +1,42 @@
-cmake_minimum_required(VERSION 3.10)
 
-set(CMAKE_EXPORT_COMPILE_COMMANDS true)
-set(SRCS_WORKER
-    ./src/main.c
-    ./src/splan/json/getlocs.c
-    ./src/splan/json/locs_parse.c
-    ./src/splan/json/iso_to_utf.c
-    ./src/splan/splan_init.c
-    )
+set(CMAKE_C_FLAGS " ${CMAKE_CXX_FLAGS} --coverage")
+set(CMAKE_CXX_FLAGS " ${CMAKE_CXX_FLAGS} --coverage")
 
-include(GNUInstallDirs)
 
-add_executable(splan-server ${SRCS_WORKER})
+set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+set(CMAKE_CXX_EXTENSIONS OFF)
+
+include(FetchContent)
+
+FetchContent_Declare(
+  googletest
+  GIT_REPOSITORY https://github.com/google/googletest.git
+  GIT_TAG        release-1.11.0
+)
+FetchContent_MakeAvailable(googletest)
+add_library(GTest::GTest INTERFACE IMPORTED)
+target_link_libraries(GTest::GTest INTERFACE gtest_main)
+
+add_executable(splan_init_test ./splan_init.cpp)
+
+# cJSON
 find_package(cJSON REQUIRED)
-message(STATUS ${CJSON_INCLUDE_DIRS})
-message(STATUS ${CJSON_LIBRARIES})
 
 # CURL
 find_package(CURL REQUIRED)
 
-
 include_directories(${CURL_INCLUDE_DIR} ${CJSON_INCLUDE_DIRS})
 
 
-target_link_libraries(splan-server ${CURL_LIBRARIES})
-target_link_libraries(splan-server ${CJSON_LIBRARIES})
-target_link_libraries(splan-server m)
 
-add_subdirectory(TARGETS splan-server DESTINATION ${CMAKE_INSTALL_BINDIR})
+
+target_link_libraries(splan_init_test
+    PRIVATE
+        GTest::GTest
+        splanLib
+        ${CURL_LIBRARIES}
+        ${CJSON_LIBRARIES}
+        m)
+
+add_test(splan_init_gtest splan_init_test)

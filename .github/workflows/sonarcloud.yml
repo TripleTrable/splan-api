@@ -73,8 +73,7 @@ jobs:
 
       - name: Run tests to generate coverage statistics
         run: |
-          ./build/coverage_test1
-          ./build/coverage_test2
+          ctest --test-dir build
 
       - name: Collect coverage into one XML report
         run: |
