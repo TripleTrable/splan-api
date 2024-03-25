@@ -77,6 +77,11 @@ loc *splan_get_locs(void)
 
     res = curl_easy_perform(curl);
 
+#ifdef CURL_GTEST
+    // HERE we customize the result from curl to fit unit tests
+    // TODO: make special gtest stuff here
+#endif /* ifdef CURL_GTEST */
+
     if (res != CURLE_OK) {
         fprintf(stderr, "curle call failed: %s\n", curl_easy_strerror(res));
         goto cleanup;
