@@ -55,6 +55,9 @@ add_test(getlocs_gtest getlocs_test)
 
 
 add_executable(iso8859_to_utf_test ./iso8859_to_utf_test.cpp)
+configure_file(./iso8859_test.txt ./ COPYONLY)
+configure_file(./utf_8_test.txt ./ COPYONLY)
+
 target_link_libraries(iso8859_to_utf_test
     PRIVATE
         GTest::GTest
