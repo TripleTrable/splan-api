@@ -4,7 +4,7 @@
 #include <stdint.h>
 
 typedef struct {
-    char* server_api_endpoint;
+    char *server_api_endpoint;
 } server_user_config;
 
 extern server_user_config _server_config;
@@ -15,8 +15,8 @@ extern server_user_config _server_config;
 */
 typedef struct {
     uint64_t id;
-    char* shortname;
-    char* name;
+    char *shortname;
+    char *name;
 } loc;
 
 /**
@@ -25,6 +25,6 @@ typedef struct {
  *          This struct is copied inside splan_init.
  * @return  0 on success. -1 on failure and errno is set.
  */
-int splan_init(server_user_config* config);
+int splan_init(server_user_config *config);
 
 #endif // !SPDATA_H

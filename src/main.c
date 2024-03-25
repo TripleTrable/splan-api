@@ -5,14 +5,14 @@
 
 int main(void)
 {
-	if (!setlocale(LC_ALL, "de_DE.UTF-8"))
-		perror("could not set german locale");
-	server_user_config user_config;
-	user_config.server_api_endpoint =
-		"https://splan.th-rosenheim.de/splan/json";
+    if (!setlocale(LC_ALL, "de_DE.UTF-8"))
+        perror("could not set german locale");
+    server_user_config user_config;
+    user_config.server_api_endpoint =
+        "https://splan.th-rosenheim.de/splan/json";
 
-	splan_init(&user_config);
+    splan_init(&user_config);
 
-	splan_get_locs();
-	printf("Hello World");
+    splan_get_locs();
+    printf("Hello World");
 }
