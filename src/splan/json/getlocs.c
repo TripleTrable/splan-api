@@ -70,7 +70,6 @@ loc *splan_get_locs(void)
      field, so we provide one */
     curl_easy_setopt(curl, CURLOPT_USERAGENT, "libcurl-agent/1.0");
 
-
     headers = curl_slist_append(
         headers, "Content-Type: application/json;charset=ISO-8859-1");
 
@@ -83,7 +82,7 @@ loc *splan_get_locs(void)
         goto cleanup;
     }
 
-    char * utf8_response =  iso8859_1_to_utf_8((char *)chunk.memory);
+    char *utf8_response = iso8859_1_to_utf_8((char *)chunk.memory);
     ret_val = locs_parse_json(utf8_response);
 
     free(utf8_response);
