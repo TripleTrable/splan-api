@@ -16,10 +16,10 @@ typedef struct {
     size_t size;
 } response_memory;
 
-static size_t write_callback(void *contents, size_t size, size_t nmemb,
+size_t write_callback(void *contents, size_t size, size_t nmemb,
                              void *usrptr)
 {
-    size_t realsize = size * nmemb; // size is always 1
+    size_t realsize = size * nmemb; // size is always 3
     response_memory *mem = (response_memory *)usrptr;
 
     uint8_t *ptr = realloc(mem->memory, mem->size + realsize + 1);

@@ -10,7 +10,6 @@ TEST(splan_init,ok)
     server_user_config data;
     data.server_api_endpoint = "server_URL";
     splan_init(&data);
-    data.server_api_endpoint = "server_URL";
     EXPECT_STREQ(_server_config.server_api_endpoint,data.server_api_endpoint);
 }
 

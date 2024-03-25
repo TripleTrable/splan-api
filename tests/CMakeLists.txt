@@ -18,7 +18,6 @@ FetchContent_MakeAvailable(googletest)
 add_library(GTest::GTest INTERFACE IMPORTED)
 target_link_libraries(GTest::GTest INTERFACE gtest_main)
 
-add_executable(splan_init_test ./splan_init.cpp)
 
 # cJSON
 find_package(cJSON REQUIRED)
@@ -31,6 +30,7 @@ include_directories(${CURL_INCLUDE_DIR} ${CJSON_INCLUDE_DIRS})
 
 
 
+add_executable(splan_init_test ./splan_init.cpp)
 target_link_libraries(splan_init_test
     PRIVATE
         GTest::GTest
@@ -38,5 +38,15 @@ target_link_libraries(splan_init_test
         ${CURL_LIBRARIES}
         ${CJSON_LIBRARIES}
         m)
-
 add_test(splan_init_gtest splan_init_test)
+
+
+add_executable(getlocs_test ./getlocks.cpp)
+target_link_libraries(getlocs_test
+    PRIVATE
+        GTest::GTest
+        splanLib
+        ${CURL_LIBRARIES}
+        ${CJSON_LIBRARIES}
+        m)
+add_test(getlocs_gtest getlocs_test)
