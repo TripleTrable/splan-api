@@ -49,4 +49,19 @@ target_link_libraries(getlocs_test
         ${CURL_LIBRARIES}
         ${CJSON_LIBRARIES}
         m)
+
+target_compile_definitions(getlocs_test PUBLIC CURL_GTEST)
 add_test(getlocs_gtest getlocs_test)
+
+
+add_executable(iso8859_to_utf_test ./iso8859_to_utf_test.cpp)
+target_link_libraries(iso8859_to_utf_test
+    PRIVATE
+        GTest::GTest
+        splanLib
+        ${CURL_LIBRARIES}
+        ${CJSON_LIBRARIES}
+        m)
+
+target_compile_definitions(iso8859_to_utf_test PUBLIC CURL_GTEST)
+add_test(iso8859_to_utf_gtest iso8859_to_utf_test)

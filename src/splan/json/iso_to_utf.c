@@ -16,6 +16,11 @@ char *iso8859_1_to_utf_8(char *iso)
 
     int len_start;
 
+    if (!iso) {
+        errno = EINVAL;
+        return NULL;
+    }
+
     iconvDesc = iconv_open("UTF-8//TRANSLIT//IGNORE", "ISO−8859-1");
 
     if (iconvDesc == (iconv_t)-1) {
@@ -23,11 +28,6 @@ char *iso8859_1_to_utf_8(char *iso)
         return NULL;
     }
 
-    len = strlen(iso);
-    if (!len) {
-        errno = EINVAL;
-        return NULL;
-    }
 
     utf8_len = 2 * len;
     utf8_buffer = calloc(utf8_len, sizeof(char));
