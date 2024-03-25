@@ -23,12 +23,10 @@ mm/13-integrate-new-web-ui
 
 ### Pull requests
 
-The pull request is to be opened **after** testing the branch feature. The
-exception to this are draft PRs
+Collaboration are accepted as mail patches to the following Mail:
+lars.niesen@stud.th-rosenheim.de
 
-Before merging each PR needs to be reviewed from at least one other contributor
-
-### Merging
+### Merging for thoses allowed
 
 Merges are to be done the following:
 
