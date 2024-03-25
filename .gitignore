@@ -67,3 +67,4 @@ _deps
 
 # Custom
 splan-server
+.cache/
