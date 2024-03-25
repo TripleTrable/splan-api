@@ -33,8 +33,7 @@ TEST(iso8859_1_to_utf_8, correct_string) {
 
   char *result = iso8859_1_to_utf_8(iso_str);
 
-  printf("%s\n",iso_str);
-  printf("%s\n",utf_str);
+  ASSERT_STREQ(utf_str, iso_str);
   ASSERT_STREQ(result, utf_str);
 
   munmap(iso_map, iso_stat.st_size);
