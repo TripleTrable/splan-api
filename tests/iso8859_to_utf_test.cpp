@@ -14,7 +14,10 @@ extern "C" {
 TEST(iso8859_1_to_utf_8, correct_string) {
 
   int iso_fd = open("./iso8859_test.txt", O_RDONLY);
+  ASSERT_NE(iso_fd, -1);
+
   int utf_fd = open("./utf_8_test.txt", O_RDONLY);
+  ASSERT_NE(utf_fd, -1);
 
   struct stat iso_stat;
   fstat(iso_fd, &iso_stat);
