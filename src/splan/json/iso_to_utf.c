@@ -28,7 +28,6 @@ char *iso8859_1_to_utf_8(char *iso)
         return NULL;
     }
 
-
     utf8_len = 2 * len;
     utf8_buffer = calloc(utf8_len, sizeof(char));
 
