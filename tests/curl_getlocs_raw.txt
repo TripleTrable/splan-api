@@ -1,0 +1,1 @@
+[[{"id":3,"shortname":"*RO","name":"Rosenheim (Hochschule)"},{"id":5,"shortname":"WS","name":"Wasserburg (RoMed Klinik)"}]]

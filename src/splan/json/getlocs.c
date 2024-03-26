@@ -11,6 +11,15 @@
 #include <fcntl.h>
 #include <unistd.h>
 
+#ifdef CURL_GTEST
+// HERE we customize the result from curl to fit unit tests
+// TODO: make special gtest stuff here
+extern int _GTEST_CURL_RESPONSE_MOC_RET;
+extern uint8_t *_GTEST_CURL_RESPONSE_MEM;
+extern int _GTEST_CURL_RESPONSE_MEM_SIZE;
+
+#endif /* ifdef CURL_GTEST */
+
 typedef struct {
     uint8_t *memory;
     size_t size;
@@ -59,6 +68,9 @@ loc *splan_get_locs(void)
     // set  url
     curl_easy_setopt(curl, CURLOPT_URL, url);
 
+    // set  url
+    curl_easy_setopt(curl, CURLOPT_SSLVERSION, CURL_SSLVERSION_TLSv1_3);
+
     // set callback for writing
     curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, write_callback);
 
@@ -78,7 +90,10 @@ loc *splan_get_locs(void)
 
 #ifdef CURL_GTEST
     // HERE we customize the result from curl to fit unit tests
-    // TODO: make special gtest stuff here
+    // TODO: make special gtest stuff HERE
+    res = _GTEST_CURL_RESPONSE_MOC_RET;
+    chunk.memory = _GTEST_CURL_RESPONSE_MEM;
+    chunk.size = _GTEST_CURL_RESPONSE_MEM_SIZE;
 #endif /* ifdef CURL_GTEST */
 
     if (res != CURLE_OK) {

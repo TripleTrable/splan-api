@@ -25,10 +25,11 @@ target_link_libraries(splan-server ${CURL_LIBRARIES})
 target_link_libraries(splan-server ${CJSON_LIBRARIES})
 target_link_libraries(splan-server m)
 
-set_property(TARGET splan-server PROPERTY C_STANDARD 99)
+set_property(TARGET splan-server PROPERTY C_STANDARD 11)
 install(TARGETS splan-server DESTINATION ${CMAKE_INSTALL_BINDIR})
 target_include_directories(splan-server PRIVATE include)
 
-
 add_library(splanLib ${SRCS_WORKER})
+target_compile_definitions(splanLib PUBLIC CURL_GTEST)
+set_target_properties(splanLib PROPERTIES COMPILE_FLAGS "--coverage")
 target_include_directories(splanLib PUBLIC ./include)

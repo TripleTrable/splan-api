@@ -68,3 +68,16 @@ target_link_libraries(iso8859_to_utf_test
 
 target_compile_definitions(iso8859_to_utf_test PUBLIC CURL_GTEST)
 add_test(iso8859_to_utf_gtest iso8859_to_utf_test)
+
+add_executable(locs_parse_test ./locs_parse.cpp)
+target_link_libraries(locs_parse_test
+    PRIVATE
+        GTest::GTest
+        splanLib
+        ${CURL_LIBRARIES}
+        ${CJSON_LIBRARIES}
+        m)
+
+target_compile_definitions(locs_parse_test PUBLIC CURL_GTEST)
+configure_file(./curl_getlocs_raw.txt ./ COPYONLY)
+add_test(locs_parse_gtest locs_parse_test)

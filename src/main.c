@@ -5,8 +5,6 @@
 
 int main(void)
 {
-    if (!setlocale(LC_ALL, "de_DE.UTF-8"))
-        perror("could not set german locale");
     server_user_config user_config;
     user_config.server_api_endpoint =
         "https://splan.th-rosenheim.de/splan/json";
