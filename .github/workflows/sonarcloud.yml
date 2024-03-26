@@ -83,7 +83,7 @@ jobs:
             --define sonar.cfamily.build-wrapper-output="${{ env.BUILD_WRAPPER_OUT_DIR }}" \
             --define sonar.coverageReportPaths=coverage.xml \
             -Dsonar.pullrequest.provider=GitHub \
-            -Dsonar.pullrequest.github.repository="${{GITHUB_REPO}}" \
+            -Dsonar.pullrequest.github.repository="${{env.GITHUB_REPOSITORY}}" \
             -Dsonar.pullrequest.base=main \
             -Dsonar.pullrequest.branch="${{env.CHANGE_BRANCH}}" \
             -Dsonar.pullrequest.key="${{env.CHANGE_ID}}" \
