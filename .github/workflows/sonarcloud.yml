@@ -84,7 +84,7 @@ jobs:
             --define sonar.coverageReportPaths=coverage.xml \
             -Dsonar.pullrequest.provider=GitHub \
             -Dsonar.pullrequest.github.repository="${{env.GITHUB_REPOSITORY}}" \
-            -Dsonar.pullrequest.base=main \
-            -Dsonar.pullrequest.branch="${{env.CHANGE_BRANCH}}" \
-            -Dsonar.pullrequest.key="${{env.CHANGE_ID}}" \
+            -Dsonar.pullrequest.base="${{github.base_ref}}" \
+            -Dsonar.pullrequest.branch="${{github.head_ref}}" \
+            -Dsonar.pullrequest.key="${{github.event.pull_request.number}}" \
             -Dsonar.projectVersion="${{env.BUILD_NUMBER}}"
