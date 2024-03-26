@@ -88,3 +88,4 @@ jobs:
             -Dsonar.pullrequest.branch="${{github.head_ref}}" \
             -Dsonar.pullrequest.key="${{github.event.pull_request.number}}" \
             -Dsonar.projectVersion="${{env.BUILD_NUMBER}}"
+
