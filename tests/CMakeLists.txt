@@ -8,6 +8,7 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
 
 include(FetchContent)
+include(CTest)
 
 FetchContent_Declare(
   googletest
@@ -81,3 +82,45 @@ target_link_libraries(locs_parse_test
 target_compile_definitions(locs_parse_test PUBLIC CURL_GTEST)
 configure_file(./curl_getlocs_raw.txt ./ COPYONLY)
 add_test(locs_parse_gtest locs_parse_test)
+
+
+add_executable(curl_get_test ./curl_dl.cpp)
+target_link_libraries(curl_get_test
+    PRIVATE
+        GTest::GTest
+        splanLib
+        ${CURL_LIBRARIES}
+        ${CJSON_LIBRARIES}
+        m)
+
+target_compile_definitions(curl_get_test PUBLIC CURL_GTEST)
+configure_file(./curl_getlocs_raw.txt ./ COPYONLY)
+add_test(curl_get_gtest curl_get_test)
+
+
+add_executable(getpus_test ./getpus.cpp)
+target_link_libraries(getpus_test
+    PRIVATE
+        GTest::GTest
+        splanLib
+        ${CURL_LIBRARIES}
+        ${CJSON_LIBRARIES}
+        m)
+
+target_compile_definitions(getpus_test PUBLIC CURL_GTEST)
+configure_file(./curl_getpus_raw.txt ./ COPYONLY)
+add_test(getpus_gtest getpus_test)
+
+
+add_executable(pus_parse_test ./pus_parse.cpp)
+target_link_libraries(pus_parse_test
+    PRIVATE
+        GTest::GTest
+        splanLib
+        ${CURL_LIBRARIES}
+        ${CJSON_LIBRARIES}
+        m)
+
+target_compile_definitions(pus_parse_test PUBLIC CURL_GTEST)
+configure_file(./curl_getpus_raw.txt ./ COPYONLY)
+add_test(pus_parse_gtest pus_parse_test)

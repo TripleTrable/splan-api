@@ -12,5 +12,7 @@ int main(void)
     splan_init(&user_config);
 
     splan_get_locs();
+
+    splan_get_pus();
     printf("Hello World");
 }

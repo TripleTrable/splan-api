@@ -1,5 +1,6 @@
 #include "splan/json/spapi.h"
 
+#include "splan/spdata.h"
 #include <asm-generic/errno-base.h>
 #include <cjson/cJSON.h>
 #include <stdio.h>
@@ -41,7 +42,7 @@ loc *locs_parse_json(const char *_data)
             fprintf(stderr, "Error before: %s\n", error_ptr);
         }
         errno = EINVAL;
-        goto cleanup;
+        return NULL;
     }
 
     // can use hard coding to access this as the double array is always present
@@ -51,7 +52,7 @@ loc *locs_parse_json(const char *_data)
     const cJSON *child;
 
     size_t size = cJSON_GetArraySize(data);
-    ret_val = (loc *)malloc(size * sizeof(loc));
+    ret_val = (loc *)calloc(size, sizeof(loc));
     loc *iterator = ret_val;
     cJSON_ArrayForEach(child, data)
     {
@@ -66,7 +67,7 @@ loc *locs_parse_json(const char *_data)
 
         tmp = cJSON_GetObjectItem(child, "shortname");
         if (tmp == NULL || !cJSON_IsString(tmp)) {
-            free(ret_val);
+            loc_free_all(ret_val, size);
             ret_val = NULL;
             errno = EINVAL;
             goto cleanup;
@@ -74,7 +75,7 @@ loc *locs_parse_json(const char *_data)
         iterator->shortname =
             calloc(strlen(tmp->valuestring) + 1, sizeof(char));
         if (!iterator->shortname) {
-            free(ret_val);
+            loc_free_all(ret_val, size);
             ret_val = NULL;
             errno = EINVAL;
             goto cleanup;
@@ -83,16 +84,14 @@ loc *locs_parse_json(const char *_data)
 
         tmp = cJSON_GetObjectItem(child, "name");
         if (tmp == NULL || !cJSON_IsString(tmp)) {
-            free(iterator->shortname);
-            free(ret_val);
+            loc_free_all(ret_val, size);
             ret_val = NULL;
             errno = EINVAL;
             goto cleanup;
         }
         iterator->name = calloc(strlen(tmp->valuestring) + 1, sizeof(char));
         if (!iterator->name) {
-            free(iterator->shortname);
-            free(ret_val);
+            loc_free_all(ret_val, size);
             ret_val = NULL;
             errno = EINVAL;
             goto cleanup;

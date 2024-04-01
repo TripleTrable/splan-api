@@ -3,10 +3,14 @@ cmake_minimum_required(VERSION 3.10)
 set(CMAKE_EXPORT_COMPILE_COMMANDS true)
 set(SRCS_WORKER
     ./main.c
-    ./splan/json/getlocs.c
+    ./splan/request/getlocs.c
+    ./splan/request/getpus.c
+    ./splan/curl/curl_dl.c
     ./splan/json/locs_parse.c
-    ./splan/json/iso_to_utf.c
+    ./splan/json/pus_parse.c
+    ./splan/iso_to_utf.c
     ./splan/splan_init.c
+    ./splan/data_free.c
     )
 
 include(GNUInstallDirs)

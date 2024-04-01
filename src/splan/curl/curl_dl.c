@@ -1,16 +1,14 @@
-#include "splan/json/spapi.h"
-#define CURL_ICONV_CODESET_OF_NETWORK "ISO8859-1"
-
-#define CURL_ICONV_CODESET_FOR_UTF8 "UTF-8"
+#include "splan/curl/curl_dl.h"
+#include "splan/spdata.h"
 #include <curl/curl.h>
-#include <curl/easy.h>
+#include <stddef.h>
+#include <stdint.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include <wchar.h>
-#include <fcntl.h>
-#include <unistd.h>
 
+#define CURL_ICONV_CODESET_OF_NETWORK "ISO8859-1"
+#define CURL_ICONV_CODESET_FOR_UTF8 "UTF-8"
 #ifdef CURL_GTEST
 // HERE we customize the result from curl to fit unit tests
 // TODO: make special gtest stuff here
@@ -42,14 +40,12 @@ size_t write_callback(void *contents, size_t size, size_t nmemb, void *usrptr)
     return realsize;
 }
 
-loc *splan_get_locs(void)
+const char *curl_get(const char *url)
 {
-    CURL *curl;
+    CURL *curl = NULL;
     CURLcode res;
-    size_t url_len;
-    char *url;
     response_memory chunk;
-    loc *ret_val = NULL;
+    char *content = NULL;
     struct curl_slist *headers = NULL;
 
     chunk.memory = malloc(1);
@@ -57,13 +53,7 @@ loc *splan_get_locs(void)
 
     curl = curl_easy_init();
     if (!curl)
-        return NULL;
-
-    url_len = strlen(_server_config.server_api_endpoint) + 11;
-    url = malloc(url_len);
-
-    snprintf(url, url_len, "%s?m=getlocs", _server_config.server_api_endpoint);
-    printf("URL: %s\n", url);
+        goto cleanup;
 
     // set  url
     curl_easy_setopt(curl, CURLOPT_URL, url);
@@ -101,14 +91,14 @@ loc *splan_get_locs(void)
         goto cleanup;
     }
 
-    char *utf8_response = iso8859_1_to_utf_8((char *)chunk.memory);
-    ret_val = locs_parse_json(utf8_response);
-
-    free(utf8_response);
+    content = malloc(chunk.size);
+    memcpy(content, chunk.memory, chunk.size);
 cleanup:
 
     curl_easy_cleanup(curl);
+#ifndef CURL_GTEST
     free(chunk.memory);
+#endif /* ifndef  CURL_GTEST */
 
-    return ret_val;
+    return content;
 }

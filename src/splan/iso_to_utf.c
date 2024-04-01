@@ -4,7 +4,7 @@
 #include <stdlib.h>
 #include <string.h>
 
-char *iso8859_1_to_utf_8(char *iso)
+const char *iso8859_1_to_utf_8(char *iso)
 {
     iconv_t iconvDesc;
 
@@ -13,8 +13,6 @@ char *iso8859_1_to_utf_8(char *iso)
     size_t len;
     size_t utf8_len;
     char *utf8_iter;
-
-    int len_start;
 
     if (!iso) {
         errno = EINVAL;
@@ -43,7 +41,6 @@ char *iso8859_1_to_utf_8(char *iso)
     }
 
     utf8_iter = utf8_buffer;
-    len_start = len;
 
     iconv_value = iconv(iconvDesc, &iso, &len, &utf8_iter, &utf8_len);
 
