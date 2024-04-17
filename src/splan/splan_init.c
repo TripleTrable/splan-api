@@ -17,7 +17,7 @@ int splan_init(server_user_config *config)
 
     _server_config.server_api_endpoint = calloc(endpoint_length, sizeof(char));
     if (_server_config.server_api_endpoint == NULL) {
-        perror("Could not allocate memory for the api_endpoint string\n");
+        errno = ENOMEM;
         return -1;
     }
     strncpy(_server_config.server_api_endpoint, config->server_api_endpoint,

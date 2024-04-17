@@ -1,5 +1,10 @@
 cmake_minimum_required(VERSION 3.10)
 
+if (CMAKE_BUILD_TYPE STREQUAL "Debug")
+set(CMAKE_C_FLAGS " ${CMAKE_CXX_FLAGS} --coverage")
+set(CMAKE_CXX_FLAGS " ${CMAKE_CXX_FLAGS} --coverage")
+endif (CMAKE_BUILD_TYPE STREQUAL "Debug")
+
 set(CMAKE_EXPORT_COMPILE_COMMANDS true)
 set(SRCS_WORKER
     ./main.c
@@ -11,6 +16,7 @@ set(SRCS_WORKER
     ./splan/iso_to_utf.c
     ./splan/splan_init.c
     ./splan/data_free.c
+    ./rest/default_route.c
     )
 
 include(GNUInstallDirs)
@@ -23,11 +29,20 @@ find_package(cJSON REQUIRED)
 # CURL
 find_package(CURL REQUIRED)
 
+# microhttpd
+
+
 include_directories(${CURL_INCLUDE_DIR} ${CJSON_INCLUDE_DIRS})
 
 target_link_libraries(splan-server ${CURL_LIBRARIES})
 target_link_libraries(splan-server ${CJSON_LIBRARIES})
+target_link_libraries(splan-server microhttpd)
 target_link_libraries(splan-server m)
+
+if (CMAKE_BUILD_TYPE STREQUAL "Debug")
+target_link_libraries(splan-server gcov)
+set_target_properties(splan-server PROPERTIES COMPILE_FLAGS "--coverage")
+endif (CMAKE_BUILD_TYPE STREQUAL "Debug")
 
 set_property(TARGET splan-server PROPERTY C_STANDARD 11)
 install(TARGETS splan-server DESTINATION ${CMAKE_INSTALL_BINDIR})

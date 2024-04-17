@@ -64,21 +64,26 @@ jobs:
         uses: SonarSource/sonarcloud-github-c-cpp@v2
 
       - name: Install dependencies
-        run: sudo apt update && sudo apt install -y libcjson-dev libcurl4-gnutls-dev
+        run: sudo apt update && sudo apt install -y libcjson-dev libcurl4-gnutls-dev libmicrohttpd-dev
 
       - name: Run build-wrapper
         run: |
           mkdir build
-          cmake -S . -B build
-          build-wrapper-linux-x86-64 --out-dir ${{ env.BUILD_WRAPPER_OUT_DIR }} cmake --build build/ --config Release
+          cmake -S . -B build -DCMAKE_BUILD_TYPE=Debug
+          build-wrapper-linux-x86-64 --out-dir ${{ env.BUILD_WRAPPER_OUT_DIR }} cmake --build build/ --config Debug
 
       - name: Run tests to generate coverage statistics
         run: |
           ctest --test-dir build
 
+      - name: Run integration script
+        run: |
+          ./user_api_test.sh
+
       - name: Collect coverage into one XML report
         run: |
           gcovr --sonarqube --exclude-lines-by-pattern '.*(EXPECT|ASSERT)_.*' -e build > coverage.xml
+
 
       - name: Run sonar-scanner
         env:

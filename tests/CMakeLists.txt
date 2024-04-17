@@ -124,3 +124,16 @@ target_link_libraries(pus_parse_test
 target_compile_definitions(pus_parse_test PUBLIC CURL_GTEST)
 configure_file(./curl_getpus_raw.txt ./ COPYONLY)
 add_test(pus_parse_gtest pus_parse_test)
+
+add_executable(rest_default_route_test ./rest_default_route.cpp)
+target_link_libraries(rest_default_route_test
+    PRIVATE
+        GTest::GTest
+        splanLib
+        ${CURL_LIBRARIES}
+        ${CJSON_LIBRARIES}
+        microhttpd
+        m)
+
+target_compile_definitions(rest_default_route_test PUBLIC CURL_GTEST)
+add_test(rest_default_route_gtest rest_default_route_test)

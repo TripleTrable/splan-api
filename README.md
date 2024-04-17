@@ -4,6 +4,13 @@
 
 Wrapper and parser for the StarPlanner API
 
+## Dependencies
+
+- libcjson-dev
+- libcurl4-gnutls-dev
+- libmicrohttpd-dev
+
+
 ## Collaboration
 
 

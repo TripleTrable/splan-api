@@ -1,6 +1,7 @@
 #include "splan/curl/curl_dl.h"
 #include "splan/spdata.h"
 #include <curl/curl.h>
+#include <errno.h>
 #include <stddef.h>
 #include <stdint.h>
 #include <stdio.h>
@@ -30,7 +31,7 @@ size_t write_callback(void *contents, size_t size, size_t nmemb, void *usrptr)
 
     uint8_t *ptr = realloc(mem->memory, mem->size + realsize + 1);
     if (!ptr) {
-        perror("Could not allocate memory during curl callback");
+        errno = ENOMEM;
         return 0;
     }
     mem->memory = ptr;

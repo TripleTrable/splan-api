@@ -1,3 +1,4 @@
+#include <asm-generic/errno-base.h>
 #include <iconv.h>
 #include <errno.h>
 #include <stdio.h>
@@ -22,7 +23,7 @@ const char *iso8859_1_to_utf_8(char *iso)
     iconvDesc = iconv_open("UTF-8//TRANSLIT//IGNORE", "ISO−8859-1");
 
     if (iconvDesc == (iconv_t)-1) {
-        perror("During iconv_open the following error occured");
+        errno = EAGAIN;
         return NULL;
     }
 
@@ -46,10 +47,6 @@ const char *iso8859_1_to_utf_8(char *iso)
 
     if (iconv_value == (size_t)-1) {
         return NULL;
-    }
-
-    if (iconv_close(iconvDesc) != 0) {
-        perror("libicon close failed");
     }
 
     return utf8_buffer;
