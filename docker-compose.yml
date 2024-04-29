@@ -1,0 +1,23 @@
+version: '3.3'
+
+services:
+  splan-server:
+    container_name: splan-server
+    image: splan:latest
+    ports:
+      - "8080:8080"
+
+  newman:
+    image: docker.io/postman/newman
+    depends_on:
+      - splan-server
+    entrypoint: [""]
+    volumes:
+      - ./api-test:/etc/newman
+    command: sh -c "
+      sleep 10 &&
+      newman run integrationPostmanTests.json --reporters cli,junit --reporter-junit-export /etc/newman/api-results.xml"
+
+volumes:
+  json-volume:
+

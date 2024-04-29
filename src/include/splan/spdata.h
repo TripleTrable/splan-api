@@ -91,6 +91,14 @@ void pgsext_free(pgsext *data);
 
 void pgsext_free_all(pgsext *data, size_t size);
 
+typedef struct {
+    lecture *lectures;
+    time_t *lecture_time;
+    size_t count;
+} timetable;
+
+void timetable_free(timetable *data);
+
 /**
  * Initializes the config and Splan API related structs.
  * @param   config struct containing SPlan server data.

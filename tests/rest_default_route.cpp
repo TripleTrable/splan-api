@@ -11,6 +11,9 @@ extern "C" {
 
 char *simple_message(const char *message);
 struct MHD_Response *create_MHD_response(char *message);
+int _GTEST_CURL_RESPONSE_MOC_RET;
+uint8_t *_GTEST_CURL_RESPONSE_MEM;
+size_t _GTEST_CURL_RESPONSE_MEM_SIZE;
 }
 
 TEST(simple_message, ok) {

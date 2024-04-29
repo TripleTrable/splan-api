@@ -64,7 +64,7 @@ jobs:
         uses: SonarSource/sonarcloud-github-c-cpp@v2
 
       - name: Install dependencies
-        run: sudo apt update && sudo apt install -y libcjson-dev libcurl4-gnutls-dev libmicrohttpd-dev
+        run: sudo apt update && sudo apt install -y libhiredis-dev libcjson-dev libcurl4-gnutls-dev libmicrohttpd-dev
 
       - name: Run build-wrapper
         run: |

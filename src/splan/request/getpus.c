@@ -36,3 +36,26 @@ pu *splan_get_pus(void)
 
     return pus;
 }
+
+char *splan_get_pus_json(void)
+{
+    size_t url_len;
+    char *url;
+
+    if (_server_config.server_api_endpoint == NULL) {
+        errno = EINVAL;
+        return NULL;
+    }
+    url_len = strlen(_server_config.server_api_endpoint) + 512;
+    url = malloc(url_len);
+
+    snprintf(url, url_len, "%s?m=getpus", _server_config.server_api_endpoint);
+    printf("URL: %s\n", url);
+
+    const char *data = curl_get(url);
+    free(url);
+
+    char *utf8_response = iso8859_1_to_utf_8(data);
+
+    return utf8_response;
+}

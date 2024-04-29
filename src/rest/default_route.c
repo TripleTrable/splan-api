@@ -1,4 +1,5 @@
 #include "rest/default_route.h"
+#include "splan/json/spapi.h"
 #include <errno.h>
 #include <microhttpd.h>
 #include <setjmp.h>
@@ -85,17 +86,19 @@ enum MHD_Result default_handler(void *cls, struct MHD_Connection *connection,
         }
 
         else if (validate_route(url, "/faculties")) {
-            response_api =
-                (HTTP_response){ .body = simple_message("Not implemented yet"),
-                                 .status = HTTP_NOT_FOUND };
+            char *c = splan_get_locs_json();
+            if (c == NULL)
+                THROW(1);
+            response_api = (HTTP_response){ .body = c, .status = HTTP_OK };
         } else if (validate_route(url, "/timetable")) {
             response_api =
                 (HTTP_response){ .body = simple_message("Not implemented yet"),
                                  .status = HTTP_NOT_FOUND };
         } else if (validate_route(url, "/semesters")) {
-            response_api =
-                (HTTP_response){ .body = simple_message("Not implemented yet"),
-                                 .status = HTTP_NOT_FOUND };
+            char *c = splan_get_pus_json();
+            if (c == NULL)
+                THROW(1);
+            response_api = (HTTP_response){ .body = c, .status = HTTP_OK };
         }
 
         else {

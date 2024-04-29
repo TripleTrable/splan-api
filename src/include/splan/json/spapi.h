@@ -17,14 +17,24 @@ loc *splan_get_locs(void);
 pu *splan_get_pus(void);
 og *splan_get_ogs(const pu *semseter);
 pgsext *splan_get_pgsext(const og *faculty, const pu *semester);
+timetable *splan_get_timetable(pu *semeseter, lecture *lectures,
+                               size_t lectures_count);
+
+char *splan_get_pus_json(void);
+char *splan_get_locs_json(void);
 
 //local
 loc *locs_parse_json(const char *data);
 pu *pus_parse_json(const char *_data);
 og *ogs_parse_json(const char *_data);
 pgsext *pgsext_parse_json(const char *_data);
+timetable *tt_parse_json(const char *_data);
 
 lecture *lecture_parse(const cJSON *_data, size_t *size);
+
+lecture *sort_lectures_partition(lecture *left, lecture *right);
+void sort_lectures_ascending(lecture *left, lecture *right);
+char *encode_lectures(lecture *lectures, size_t lectures_count);
 
 char *iso8859_1_to_utf_8(const char *iso);
 

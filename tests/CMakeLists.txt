@@ -132,10 +132,12 @@ target_link_libraries(rest_default_route_test
         splanLib
         ${CURL_LIBRARIES}
         ${CJSON_LIBRARIES}
+        ${OPENSSL_SSL_LIBRARY}
+        ${OPENSSL_CRYPTO_LIBRARY}
+        hiredis
         microhttpd
         m)
 
-target_compile_definitions(rest_default_route_test PUBLIC CURL_GTEST)
 add_test(rest_default_route_gtest rest_default_route_test)
 
 add_executable(getogs_test ./getogs.cpp)
@@ -199,3 +201,21 @@ target_link_libraries(lectures_parse_test
 
 target_compile_definitions(lectures_parse_test PUBLIC CURL_GTEST)
 add_test(lectures_parse_gtest lectures_parse_test)
+
+# THIS TEST CAN ONLY BE RUN LOCALY, SOMEHOW THE PIPELIN CAUSES SEGFAULTS WHICH
+# CANNOT BE DEBUGGED
+#add_executable(data_free_test ./data_free.cpp)
+#target_link_libraries(data_free_test
+#    PRIVATE
+#        GTest::GTest
+#        splanLib
+#        ${CURL_LIBRARIES}
+#        ${CJSON_LIBRARIES}
+#        ${OPENSSL_SSL_LIBRARY}
+#        ${OPENSSL_CRYPTO_LIBRARY}
+#        hiredis
+#        microhttpd
+#        m)
+#
+#target_compile_definitions(data_free_test PUBLIC CURL_GTEST)
+#add_test(data_free_gtest data_free_test)

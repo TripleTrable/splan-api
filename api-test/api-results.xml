@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites name="SS22_Exercise02_IntegrationTests" tests="2" time="0.246">
+  <testsuite name="splan-servrer / getpus / getpus" id="d6e96ad0-f955-4841-a222-e0a734d2b3d6" timestamp="2024-06-03T08:11:57.215Z" tests="0" failures="0" errors="0" time="0.151"/>
+  <testsuite name="splan-servrer / getlocs / getpus" id="d0cfac9b-5892-4afd-817a-74383085e8e4" timestamp="2024-06-03T08:11:57.215Z" tests="0" failures="0" errors="0" time="0.095"/>
+</testsuites>

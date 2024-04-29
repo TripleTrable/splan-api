@@ -33,4 +33,11 @@ jobs:
       # Build your program with the given configuration
       run: cmake --build ${{github.workspace}}/build --config ${{env.BUILD_TYPE}} --target splan-server
 
+    - name: Docker build
+      # Build your program with the given configuration
+      run: docker buildx build . -t splan:latest
 
+
+    - name: Docker compose test
+      # Build your program with the given configuration
+      run: docker compose up -d && sleep 80 && docker compose down
