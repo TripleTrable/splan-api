@@ -20,6 +20,11 @@ int main(void)
 
     splan_init(&user_config);
 
+    og faculty = { .id = 35 };
+    pu semester = { .id = 37 };
+
+    splan_get_pgsext(&faculty, &semester);
+
     struct MHD_Daemon *daemon;
 
     daemon = MHD_start_daemon(MHD_USE_THREAD_PER_CONNECTION, 8080, NULL, NULL,

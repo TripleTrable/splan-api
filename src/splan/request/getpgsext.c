@@ -12,7 +12,7 @@
 #include <fcntl.h>
 #include <unistd.h>
 
-loc *splan_get_locs(void)
+pgsext *splan_get_pgsext(const og *faculty, const pu *semester)
 {
     size_t url_len;
     char *url;
@@ -24,8 +24,8 @@ loc *splan_get_locs(void)
     url_len = strlen(_server_config.server_api_endpoint) + 512;
     url = malloc(url_len);
 
-    snprintf(url, url_len, "%s?m=getlocs", _server_config.server_api_endpoint);
-    printf("URL: %s\n", url);
+    snprintf(url, url_len, "%s?m=getPgsExt&pu=%lu&og=%lu",
+             _server_config.server_api_endpoint, semester->id, faculty->id);
 
     const char *data = curl_get(url);
     free(url);
@@ -33,9 +33,9 @@ loc *splan_get_locs(void)
     char *utf8_response = iso8859_1_to_utf_8(data);
 
     free((void *)data);
-    loc *locs = locs_parse_json(utf8_response);
+    pgsext *pgsexts = pgsext_parse_json(utf8_response);
 
     free(utf8_response);
 
-    return locs;
+    return pgsexts;
 }

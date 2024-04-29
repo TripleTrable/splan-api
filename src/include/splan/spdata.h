@@ -61,6 +61,36 @@ void og_free(og *data);
 
 void og_free_all(og *data, size_t size);
 
+/*
+10."getPgsExt" (on list expansion using getogs[i].id and getpus[i].id to get module stuff):
+    GET https://splan.th-rosenheim.de/splan/json?m=getPgsExt&pu=37&og=35
+    RESPONSE: [[{"id":14119,"shortname":"INF-M/FWPM","name":"Masterstudiengang Informatik - fachwissenschaftliche Wahlpflichtmodule","lectures":[{"id":4721,"shortname":"DL","name":"Deep Learning","pgid":14119},{"id":4166,"shortname":"DSP","name":"Digital Signal Processing and Machine Learning","pgid":14119},{"id":4167,"shortname":"DSP P","name":"Digital Signal Processing and Machine Learning Praktikum","pgid":14119},{"id":4357,"shortname":"EEZS","name":"Embedded Echtzeitsysteme","pgid":14119},{"id":6537,"shortname":"ExModSim","name":"Experimental Modelling and Simulation","pgid":14119},{"id":3210,"shortname":"Fachschaft INF","name":"Fachschaft INF","pgid":13796},{"id":6302,"shortname":"FINS","name":"Finance with SAP","pgid":14119},{"id":6539,"shortname":"IntercultCom","name":"Intercultural communication - working in international groups","pgid":14119},{"id":3752,"shortname":"KS","name":"Kognitive Systeme","pgid":14119},{"id":4392,"shortname":"KVM","name":"Konfliktmanagement, Verhandlungs- und Moderationstechnik","pgid":14119},{"id":2960,"shortname":"ML","name":"Maschinelles Lernen","pgid":14119},{"id":6538,"shortname":"PsyfF","name":"Psychologie für Führungskräfte","pgid":14119},{"id":1026,"shortname":"RE","name":"Requirements Engineering","pgid":14119},{"id":1038,"shortname":"SQS","name":"Software Qualitätssicherung","pgid":14119},{"id":3753,"shortname":"xDB","name":"Erweiterte Datenbanksysteme","pgid":14119},{"id":3754,"shortname":"xITS","name":"Vertiefung der IT-Sicherheit","pgid":14119},{"id":4345,"shortname":"xRN","name":"Vertiefung Rechnernetze","pgid":14119}]},{"id":13815,"shortname":"INF-M/Pflicht","name":"Masterstudiengang Informatik - Pflichtmodule","lectures":[{"id":3210,"shortname":"Fachschaft INF","name":"Fachschaft INF","pgid":13796},{"id":1072,"shortname":"MVI","name":"Mathematische Verfahren der Informatik","pgid":13815},{"id":1073,"shortname":"MVI Ü","name":"Übungen zu Mathematische Verfahren der Informatik","pgid":13815},{"id":6303,"shortname":"SBAS","name":"SAP Basiskonzepte, Entwicklung und Systemarchitektur","pgid":13815},{"id":1070,"shortname":"STI","name":"Seminar theoretische Informatik","pgid":13815},{"id":4346,"shortname":"SwArb","name":"Seminar wissenschaftliches Arbeiten","pgid":13815},{"id":4347,"shortname":"SwArb Koll","name":"Seminar wissenschaftliches Arbeiten - Kolloquium","pgid":13815}]}]]
+
+ lecture: {"id":4721,"shortname":"DL","name":"Deep Learning","pgid":14119}
+*/
+typedef struct {
+    uint64_t id;
+    char *shortname;
+    char *name;
+    uint64_t pgid;
+} lecture;
+
+void lecture_free(lecture *data);
+
+void lecture_free_all(lecture *data, size_t size);
+
+typedef struct {
+    uint64_t id;
+    char *shortname;
+    char *name;
+    lecture *lectures;
+    size_t lecture_count;
+} pgsext;
+
+void pgsext_free(pgsext *data);
+
+void pgsext_free_all(pgsext *data, size_t size);
+
 /**
  * Initializes the config and Splan API related structs.
  * @param   config struct containing SPlan server data.

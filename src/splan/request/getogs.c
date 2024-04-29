@@ -21,7 +21,7 @@ og *splan_get_ogs(const pu *semester)
         errno = EINVAL;
         return NULL;
     }
-    url_len = strlen(_server_config.server_api_endpoint) + 11;
+    url_len = strlen(_server_config.server_api_endpoint) + 512;
     url = malloc(url_len);
 
     snprintf(url, url_len, "%s?m=getogs&pu=%lu",

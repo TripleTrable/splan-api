@@ -162,3 +162,40 @@ target_link_libraries(ogs_parse_test
 
 target_compile_definitions(ogs_parse_test PUBLIC CURL_GTEST)
 add_test(ogs_parse_gtest ogs_parse_test)
+
+add_executable(getpgsext_test ./getpgsext.cpp)
+target_link_libraries(getpgsext_test
+    PRIVATE
+        GTest::GTest
+        splanLib
+        ${CURL_LIBRARIES}
+        ${CJSON_LIBRARIES}
+        m)
+
+target_compile_definitions(getpgsext_test PUBLIC CURL_GTEST)
+configure_file(./curl_getpgsext_raw.txt ./ COPYONLY)
+add_test(getpgsext_gtest getpgsext_test)
+
+add_executable(pgsext_parse_test ./pgsext_parse.cpp)
+target_link_libraries(pgsext_parse_test
+    PRIVATE
+        GTest::GTest
+        splanLib
+        ${CURL_LIBRARIES}
+        ${CJSON_LIBRARIES}
+        m)
+
+target_compile_definitions(pgsext_parse_test PUBLIC CURL_GTEST)
+add_test(pgsext_parse_gtest pgsext_parse_test)
+
+add_executable(lectures_parse_test ./lectures_parse.cpp)
+target_link_libraries(lectures_parse_test
+    PRIVATE
+        GTest::GTest
+        splanLib
+        ${CURL_LIBRARIES}
+        ${CJSON_LIBRARIES}
+        m)
+
+target_compile_definitions(lectures_parse_test PUBLIC CURL_GTEST)
+add_test(lectures_parse_gtest lectures_parse_test)
