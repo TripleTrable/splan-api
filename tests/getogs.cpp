@@ -18,11 +18,12 @@ typedef struct {
 } response_memory;
 }
 
-TEST(getlocs, ok) {
-  int iso_fd = open("./curl_getlocs_raw.txt", O_RDONLY);
+TEST(getogs, ok) {
+  int iso_fd = open("./curl_getogs_raw.txt", O_RDONLY);
   ASSERT_NE(iso_fd, -1);
   struct stat iso_stat;
   fstat(iso_fd, &iso_stat);
+  pu faculty = {.id = 37};
   char *iso_map =
       (char *)mmap(0, iso_stat.st_size, PROT_READ, MAP_PRIVATE, iso_fd, 0);
 
@@ -31,14 +32,15 @@ TEST(getlocs, ok) {
   mem.memory = (uint8_t *)calloc(iso_stat.st_size + 1, sizeof(char));
   mem.size = (iso_stat.st_size + 1) * sizeof(char);
 
-  std::array<loc, 2> expected;
-  expected[0].id = 3;
-  expected[0].shortname = "*RO";
-  expected[0].name = "Rosenheim (Hochschule)";
+  std::array<og, 2> expected;
+  expected[0].id = 105;
+  expected[0].shortname = "AAI-B";
+  expected[0].name = "Bachelorstudiengang Applied Artificial Intelligence";
 
-  expected[1].id = 5;
-  expected[1].shortname = "WS";
-  expected[1].name = "Wasserburg (RoMed Klinik)";
+  expected[1].id = 41;
+  expected[1].shortname = "AFE-M";
+  expected[1].name = "Masterstudiengang Angewandte Forschung & Entwicklung in "
+                     "den Ingenieurwissenschaften";
 
   server_user_config data;
   data.server_api_endpoint = "https://splan.th-rosenheim.de/splan/json";
@@ -50,7 +52,7 @@ TEST(getlocs, ok) {
   _GTEST_CURL_RESPONSE_MEM = mem.memory;
   _GTEST_CURL_RESPONSE_MEM_SIZE = mem.size;
 
-  const loc *result = splan_get_locs();
+  const og *result = splan_get_ogs(&faculty);
 
   ASSERT_TRUE(result != nullptr);
   EXPECT_EQ(expected[0].id, result[0].id);

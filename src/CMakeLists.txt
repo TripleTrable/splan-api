@@ -10,9 +10,11 @@ set(SRCS_WORKER
     ./main.c
     ./splan/request/getlocs.c
     ./splan/request/getpus.c
+    ./splan/request/getogs.c
     ./splan/curl/curl_dl.c
     ./splan/json/locs_parse.c
     ./splan/json/pus_parse.c
+    ./splan/json/ogs_parse.c
     ./splan/iso_to_utf.c
     ./splan/splan_init.c
     ./splan/data_free.c

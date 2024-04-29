@@ -1,0 +1,1 @@
+[[{"id":105,"shortname":"AAI-B","name":"Bachelorstudiengang Applied Artificial Intelligence"},{"id":41,"shortname":"AFE-M","name":"Masterstudiengang Angewandte Forschung & Entwicklung in den Ingenieurwissenschaften"}]]

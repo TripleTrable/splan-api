@@ -31,7 +31,7 @@ TEST(getpus, ok) {
   mem.memory = (uint8_t *)calloc(iso_stat.st_size + 1, sizeof(char));
   mem.size = (iso_stat.st_size + 1) * sizeof(char);
 
-  pu expected[2];
+  std::array<pu, 2> expected;
   expected[0].id = 37;
   expected[0].shortname = "2024 SoSe";
   expected[0].name = "Sommersemester 2024";

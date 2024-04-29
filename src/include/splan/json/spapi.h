@@ -14,10 +14,12 @@
 
 loc *splan_get_locs(void);
 pu *splan_get_pus(void);
+og *splan_get_ogs(const pu *semseter);
 
 //local
 loc *locs_parse_json(const char *data);
 pu *pus_parse_json(const char *_data);
+og *ogs_parse_json(const char *_data);
 
 char *iso8859_1_to_utf_8(const char *iso);
 

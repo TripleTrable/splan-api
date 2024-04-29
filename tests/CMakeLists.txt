@@ -137,3 +137,28 @@ target_link_libraries(rest_default_route_test
 
 target_compile_definitions(rest_default_route_test PUBLIC CURL_GTEST)
 add_test(rest_default_route_gtest rest_default_route_test)
+
+add_executable(getogs_test ./getogs.cpp)
+target_link_libraries(getogs_test
+    PRIVATE
+        GTest::GTest
+        splanLib
+        ${CURL_LIBRARIES}
+        ${CJSON_LIBRARIES}
+        m)
+
+target_compile_definitions(getogs_test PUBLIC CURL_GTEST)
+configure_file(./curl_getogs_raw.txt ./ COPYONLY)
+add_test(getogs_gtest getogs_test)
+
+add_executable(ogs_parse_test ./ogs_parse.cpp)
+target_link_libraries(ogs_parse_test
+    PRIVATE
+        GTest::GTest
+        splanLib
+        ${CURL_LIBRARIES}
+        ${CJSON_LIBRARIES}
+        m)
+
+target_compile_definitions(ogs_parse_test PUBLIC CURL_GTEST)
+add_test(ogs_parse_gtest ogs_parse_test)

@@ -9,7 +9,7 @@ extern "C" {
 TEST(locs_parser, ok) {
   const char *json =
       R"_([[{"id":3,"shortname":"*RO","name":"Rosenheim (Hochschule)"},{"id":5,"shortname":"WS","name": "Wasserburg (RoMed Klinik)"}]])_";
-  loc expected[2];
+  std::array<loc, 2> expected;
   expected[0].id = 3;
   expected[0].shortname = "*RO";
   expected[0].name = "Rosenheim (Hochschule)";

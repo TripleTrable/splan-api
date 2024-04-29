@@ -9,7 +9,7 @@ extern "C" {
 TEST(pus_parser, ok) {
   const char *json =
       R"_([[{"id":37,"shortname":"2024 SoSe","name":"Sommersemester 2024","startdate":"2024-03-15","enddate":"2024-09-30","dateasdefault":true,"defaultloc":null,"visibleonweb":true},{"id":34,"shortname":"2023 WS","name":"Wintersemester 2023/24","startdate":"2023-10-01","enddate":"2024-03-14","dateasdefault":true,"defaultloc":null,"visibleonweb":true}]])_";
-  pu expected[2];
+  std::array<pu, 2> expected;
   expected[0].id = 37;
   expected[0].shortname = "2024 SoSe";
   expected[0].name = "Sommersemester 2024";

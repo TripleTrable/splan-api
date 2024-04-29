@@ -47,3 +47,24 @@ void pu_free_all(pu *data, size_t size)
     }
     free(data);
 }
+
+void og_free(og *data)
+{
+    if (!data)
+        return;
+
+    free(data->shortname);
+    free(data->name);
+    free(data);
+}
+
+void og_free_all(og *data, size_t size)
+{
+    if (!data || size == 0)
+        return;
+    for (int i = 0; i < size; i++) {
+        free(data[i].shortname);
+        free(data[i].name);
+    }
+    free(data);
+}
