@@ -112,4 +112,3 @@ void pgsext_free_all(pgsext *data, size_t size)
     }
     free(data);
 }
-
