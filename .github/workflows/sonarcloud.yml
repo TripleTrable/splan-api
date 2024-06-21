@@ -76,9 +76,10 @@ jobs:
         run: |
           ctest --test-dir build
 
-      - name: Run integration script
-        run: |
-          ./user_api_test.sh
+          # This can only be run locally as the piplien has problems with connecting to localhost
+          #  - name: Run integration script
+          #    run: |
+          #      ./user_api_test.sh
 
       - name: Collect coverage into one XML report
         run: |

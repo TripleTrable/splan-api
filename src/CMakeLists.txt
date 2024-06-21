@@ -22,6 +22,8 @@ set(SRCS_WORKER
     ./splan/splan_init.c
     ./splan/data_free.c
     ./rest/default_route.c
+    ./db/redis_db.c
+    ./sha256_string.c
     )
 
 include(GNUInstallDirs)
@@ -34,13 +36,18 @@ find_package(cJSON REQUIRED)
 # CURL
 find_package(CURL REQUIRED)
 
-# microhttpd
+# openssl
+find_package(OpenSSL REQUIRED)
 
 
-include_directories(${CURL_INCLUDE_DIR} ${CJSON_INCLUDE_DIRS})
+include_directories(${CURL_INCLUDE_DIR} ${CJSON_INCLUDE_DIRS} ${OPENSSL_INCLUDE_DIRS})
 
 target_link_libraries(splan-server ${CURL_LIBRARIES})
 target_link_libraries(splan-server ${CJSON_LIBRARIES})
+target_link_libraries(splan-server ${OPENSSL_LIBRARIES})
+target_link_libraries(splan-server ${OPENSSL_SSL_LIBRARY})
+target_link_libraries(splan-server ${OPENSSL_CRYPTO_LIBRARY})
+target_link_libraries(splan-server hiredis)
 target_link_libraries(splan-server microhttpd)
 target_link_libraries(splan-server m)
 

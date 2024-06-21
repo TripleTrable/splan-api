@@ -1,11 +1,13 @@
 #include <curl/curl.h>
 #include <fcntl.h>
 #include <gtest/gtest.h>
+#include <hiredis/hiredis.h>
 #include <pthread.h>
 #include <sys/mman.h>
 
 extern "C" {
 #include "rest/default_route.h"
+#include <db/redis_db.h>
 #include <microhttpd.h>
 #include <string.h>
 
@@ -14,6 +16,12 @@ struct MHD_Response *create_MHD_response(char *message);
 int _GTEST_CURL_RESPONSE_MOC_RET;
 uint8_t *_GTEST_CURL_RESPONSE_MEM;
 size_t _GTEST_CURL_RESPONSE_MEM_SIZE;
+redisReply _GTEST_REDIS_REPLY_VALUE;
+redisReply _GTEST_REDIS_REPLY_TS;
+char *_GTEST_REDIS_STORE_VALUE;
+char *_GTEST_REDIS_STORE_TS;
+redisReply _GTEST_REDIS_STORE_REPLY;
+redisContext *_GTEST_REDIS_CONTEX;
 }
 
 TEST(simple_message, ok) {

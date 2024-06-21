@@ -2,6 +2,7 @@
 #include <stdio.h>
 #include "splan/spdata.h"
 #include "splan/json/spapi.h"
+#include <db/redis_db.h>
 #include "rest/default_route.h"
 #include <microhttpd.h>
 
@@ -26,6 +27,10 @@ int main(void)
     splan_get_pgsext(&faculty, &semester);
 
     struct MHD_Daemon *daemon;
+
+    global_redis_database = db_init("127.0.0.1", 6379);
+    if (global_redis_database == NULL)
+        return -1;
 
     daemon = MHD_start_daemon(MHD_USE_THREAD_PER_CONNECTION, 8080, NULL, NULL,
                               &default_handler, NULL, MHD_OPTION_END);

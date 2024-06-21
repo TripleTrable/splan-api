@@ -219,3 +219,35 @@ add_test(lectures_parse_gtest lectures_parse_test)
 #
 #target_compile_definitions(data_free_test PUBLIC CURL_GTEST)
 #add_test(data_free_gtest data_free_test)
+
+add_executable(redis_db_init ./redis_init.cpp)
+target_link_libraries(redis_db_init
+    PRIVATE
+        GTest::GTest
+        splanLib
+        ${CURL_LIBRARIES}
+        ${CJSON_LIBRARIES}
+        ${OPENSSL_SSL_LIBRARY}
+        ${OPENSSL_CRYPTO_LIBRARY}
+        hiredis
+        microhttpd
+        m)
+
+target_compile_definitions(redis_db_init PUBLIC CURL_GTEST)
+add_test(redis_db_gtest redis_db_init)
+
+add_executable(redis_store_lookup_test ./redis_store_lookup.cpp)
+target_link_libraries(redis_store_lookup_test
+    PRIVATE
+        GTest::GTest
+        splanLib
+        ${CURL_LIBRARIES}
+        ${CJSON_LIBRARIES}
+        ${OPENSSL_SSL_LIBRARY}
+        ${OPENSSL_CRYPTO_LIBRARY}
+        hiredis
+        microhttpd
+        m)
+
+target_compile_definitions(redis_store_lookup_test PUBLIC CURL_GTEST)
+add_test(redis_store_lookup_gtest redis_store_lookup_test)

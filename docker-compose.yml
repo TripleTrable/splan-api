@@ -3,6 +3,8 @@ version: '3.3'
 services:
   splan-server:
     container_name: splan-server
+    depends_on:
+      - redis
     image: splan:latest
     ports:
       - "8080:8080"
@@ -17,6 +19,14 @@ services:
     command: sh -c "
       sleep 10 &&
       newman run integrationPostmanTests.json --reporters cli,junit --reporter-junit-export /etc/newman/api-results.xml"
+
+  redis:
+    container_name: redis
+    image: redis:6.2-alpine
+    restart: always
+    ports:
+      - '6379:6379'
+    command: redis-server --save 20 1 --loglevel warning
 
 volumes:
   json-volume:

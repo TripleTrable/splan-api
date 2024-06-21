@@ -1,11 +1,16 @@
 #include "rest/default_route.h"
 #include "splan/json/spapi.h"
+#include <sha256_string.h>
+#include <db/redis_db.h>
+#include <time.h>
+#include <memory.h>
 #include <errno.h>
 #include <microhttpd.h>
 #include <setjmp.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <time.h>
 
 #define TRY               \
     do {                  \
@@ -76,6 +81,8 @@ enum MHD_Result default_handler(void *cls, struct MHD_Connection *connection,
 
     struct MHD_Response *response;
     HTTP_response response_api;
+    char sha256_buffer[65];
+    memset(sha256_buffer, 0, 65);
 
     TRY
     {
@@ -86,18 +93,51 @@ enum MHD_Result default_handler(void *cls, struct MHD_Connection *connection,
         }
 
         else if (validate_route(url, "/faculties")) {
-            char *c = splan_get_locs_json();
-            if (c == NULL)
-                THROW(1);
+            sha256_string(url, sha256_buffer);
+            struct timespec cache_time;
+            struct timespec now;
+            timespec_get(&now, TIME_UTC);
+            const char *c =
+                db_lookup(global_redis_database, sha256_buffer, &cache_time);
+            if (!c) {
+                c = splan_get_locs_json();
+                if (c == NULL)
+                    THROW(1);
+                db_store(global_redis_database, sha256_buffer, c);
+            }
+            if (now.tv_sec - cache_time.tv_sec > 500) {
+                // cache is to old
+                c = splan_get_locs_json();
+                if (c == NULL)
+                    THROW(1);
+                db_store(global_redis_database, sha256_buffer, c);
+            }
             response_api = (HTTP_response){ .body = c, .status = HTTP_OK };
         } else if (validate_route(url, "/timetable")) {
             response_api =
                 (HTTP_response){ .body = simple_message("Not implemented yet"),
                                  .status = HTTP_NOT_FOUND };
         } else if (validate_route(url, "/semesters")) {
-            char *c = splan_get_pus_json();
-            if (c == NULL)
-                THROW(1);
+            sha256_string(url, sha256_buffer);
+            struct timespec cache_time;
+            struct timespec now;
+            timespec_get(&now, TIME_UTC);
+            const char *c =
+                db_lookup(global_redis_database, sha256_buffer, &cache_time);
+
+            if (!c) {
+                c = splan_get_pus_json();
+                if (c == NULL)
+                    THROW(1);
+                db_store(global_redis_database, sha256_buffer, c);
+            }
+            if (now.tv_sec - cache_time.tv_sec > 500) {
+                // cache is to old
+                c = splan_get_locs_json();
+                if (c == NULL)
+                    THROW(1);
+                db_store(global_redis_database, sha256_buffer, c);
+            }
             response_api = (HTTP_response){ .body = c, .status = HTTP_OK };
         }
 
