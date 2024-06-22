@@ -1,18 +1,6 @@
 1. General call:
     GET https://splan.th-rosenheim.de/splan/mobile?lan=de&acc=true&act=mt&sel=mt&pu=37&lc=,dq,m,cE,6d,Ei,b,b,Cg,b,Yc,m,J,jf,Ty,Rd,b,b&pgsc=,OCd,a,a|df,df,a,a,a,a,a,a,a,a,a,a,a,a&oex=false&cl=true&sl=true&sld=false&sd=true&dfc=2024-03-25&loc=3&sa=false&cb=o
 
-
-7. "getTT"  (get time table with all parameters):
-  - get custom modules:
-    GET https://splan.th-rosenheim.de/splan/json?m=getTT&sel=mt&pu=37&lc=,dq,m,cE,6d,Ei,b,b,Cg,b,Yc,m,J,jf,Ty,Rd,b,b&pgsc=,OCd,a,a|df,df,a,a,a,a,a,a,a,a,a,a,a,a&oex=false&cl=true&sl=true&sld=false&sd=true&dfc=2024-03-25&loc=3&sa=false&cb=o
-    RESPONSE: HTML
-  - get modules by semester:
-    GET https://splan.th-rosenheim.de/splan/json?m=getTT&sel=pg&pu=37&og=35&pg=INF-M/FWPM&sd=true&dfc=2024-03-15&loc=3&sa=false&cb=o
-    RESPONSE: HTML
-
-DONE:
-=====
-
 2. "getlocs" (get list of universities):
     GET https://splan.th-rosenheim.de/splan/json?m=getlocs
     RESPONSE: [[{"id":3,"shortname":"*RO","name":"Rosenheim (Hochschule)"},{"id":6,"shortname":"AÖ","name":"Altötting (Berufliche Oberschule Inn-Salzach)"},{"id":8,"shortname":"BGL","name":"Ainring (Akademie Berchtesgadener Land)"},{"id":7,"shortname":"Bgh","name":"cb - Hochschulinstitut Burghausen"},{"id":9,"shortname":"CC","name":"Campus Chiemgau Traunstein"},{"id":4,"shortname":"MÜ","name":"Mühldorf (Haus der Wirtschaft)"},{"id":5,"shortname":"WS","name":"Wasserburg (RoMed Klinik)"}]]
@@ -29,22 +17,11 @@ DONE:
     GET https://splan.th-rosenheim.de/splan/json?m=getPgsExt&pu=37&og=35
     RESPONSE: [[{"id":14119,"shortname":"INF-M/FWPM","name":"Masterstudiengang Informatik - fachwissenschaftliche Wahlpflichtmodule","lectures":[{"id":4721,"shortname":"DL","name":"Deep Learning","pgid":14119},{"id":4166,"shortname":"DSP","name":"Digital Signal Processing and Machine Learning","pgid":14119},{"id":4167,"shortname":"DSP P","name":"Digital Signal Processing and Machine Learning Praktikum","pgid":14119},{"id":4357,"shortname":"EEZS","name":"Embedded Echtzeitsysteme","pgid":14119},{"id":6537,"shortname":"ExModSim","name":"Experimental Modelling and Simulation","pgid":14119},{"id":3210,"shortname":"Fachschaft INF","name":"Fachschaft INF","pgid":13796},{"id":6302,"shortname":"FINS","name":"Finance with SAP","pgid":14119},{"id":6539,"shortname":"IntercultCom","name":"Intercultural communication - working in international groups","pgid":14119},{"id":3752,"shortname":"KS","name":"Kognitive Systeme","pgid":14119},{"id":4392,"shortname":"KVM","name":"Konfliktmanagement, Verhandlungs- und Moderationstechnik","pgid":14119},{"id":2960,"shortname":"ML","name":"Maschinelles Lernen","pgid":14119},{"id":6538,"shortname":"PsyfF","name":"Psychologie für Führungskräfte","pgid":14119},{"id":1026,"shortname":"RE","name":"Requirements Engineering","pgid":14119},{"id":1038,"shortname":"SQS","name":"Software Qualitätssicherung","pgid":14119},{"id":3753,"shortname":"xDB","name":"Erweiterte Datenbanksysteme","pgid":14119},{"id":3754,"shortname":"xITS","name":"Vertiefung der IT-Sicherheit","pgid":14119},{"id":4345,"shortname":"xRN","name":"Vertiefung Rechnernetze","pgid":14119}]},{"id":13815,"shortname":"INF-M/Pflicht","name":"Masterstudiengang Informatik - Pflichtmodule","lectures":[{"id":3210,"shortname":"Fachschaft INF","name":"Fachschaft INF","pgid":13796},{"id":1072,"shortname":"MVI","name":"Mathematische Verfahren der Informatik","pgid":13815},{"id":1073,"shortname":"MVI Ü","name":"Übungen zu Mathematische Verfahren der Informatik","pgid":13815},{"id":6303,"shortname":"SBAS","name":"SAP Basiskonzepte, Entwicklung und Systemarchitektur","pgid":13815},{"id":1070,"shortname":"STI","name":"Seminar theoretische Informatik","pgid":13815},{"id":4346,"shortname":"SwArb","name":"Seminar wissenschaftliches Arbeiten","pgid":13815},{"id":4347,"shortname":"SwArb Koll","name":"Seminar wissenschaftliches Arbeiten - Kolloquium","pgid":13815}]}]]
 
-
-Not needed:
-===========
-
-5. "getpartinfo&pu=<getpus[i].id>" (???):
-    GET https://splan.th-rosenheim.de/splan/json?m=getpartinfo&pu=37
-    RESPONSE: ["",[{"error":"no planning units"}]]
-
-6. "searchRooms" (???? something with room search):
-    GET https://splan.th-rosenheim.de/splan/json?m=searchRooms&dfs=2024-03-25&bh=12&eh=13&bm=55&em=55&loc=3&rt=1
-    RESPONSE: [[{"id":49,"shortname":"A4.05","name":"Seminarraum *** Raumreservierung über Sekretariat BW","seats":12,"bshortname":"A"},{"id":125,"shortname":"E1.05","name":"Seminarraum","seats":24,"bshortname":"E"},{"id":206,"shortname":"R1.01","name":"Seminarraum","seats":40,"bshortname":"R"},{"id":267,"shortname":"W0.05","name":"Seminarraum *** Raumreservierung über Akademie für Weiterbildung","seats":20,"bshortname":"W"},{"id":268,"shortname":"W0.07","name":"Seminarraum *** Raumreservierung über Akademie für Weiterbildung","seats":20,"bshortname":"W"},{"id":377,"shortname":"W2.15","name":"Seminarraum Fachschule *** für THRO nutzbar","seats":25,"bshortname":"W"},{"id":328,"shortname":"W3.05 (Aula)","name":"Seminarraum der Fachschule *** Raumreservierung über Fachschule (Herr Oberniedermaier)","seats":0,"bshortname":"W"}]]
-
-8. "getAvail" (?????):
-    GET https://splan.th-rosenheim.de/splan/json?m=getAvail&pu=37
-    RESPONSE: ""
-
-9. "getRep" (get chart legend):
-    GET https://splan.th-rosenheim.de/splan/json?m=getRep&lan=de&pu=37&repogs=,&login=null&reptoken=null&rephash=
+7. "getTT"  (get time table with all parameters):
+  - get custom modules:
+    GET https://splan.th-rosenheim.de/splan/json?m=getTT&sel=mt&pu=37&lc=,dq,m,cE,6d,Ei,b,b,Cg,b,Yc,m,J,jf,Ty,Rd,b,b&pgsc=,OCd,a,a|df,df,a,a,a,a,a,a,a,a,a,a,a,a&oex=false&cl=true&sl=true&sld=false&sd=true&dfc=2024-03-25&loc=3&sa=false&cb=o
     RESPONSE: HTML
+  - get modules by semester:
+    GET https://splan.th-rosenheim.de/splan/json?m=getTT&sel=pg&pu=37&og=35&pg=INF-M/FWPM&sd=true&dfc=2024-03-15&loc=3&sa=false&cb=o
+    RESPONSE: HTML
+

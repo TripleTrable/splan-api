@@ -60,6 +60,12 @@ end:
     return ret;
 }
 
+/** @brief request single value from key string
+ *
+ *  @paran context the database context
+ *  @paran string the key to find in the database
+ *  @return returns the value matiching the string
+ * */
 static const char *db_request_string(redisContext *context, const char *string)
 {
     char *ret = NULL;
@@ -129,6 +135,12 @@ end:
     return ret;
 }
 
+/** @brief store single key-value pair
+ *
+ *  @paran context the database context
+ *  @paran key the key to store the value in the database
+ *  @paran value the value to store in the database
+ * */
 static void db_store_string(redisContext *context, const char *key,
                             const char *value)
 {

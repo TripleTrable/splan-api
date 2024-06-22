@@ -67,6 +67,8 @@ char *simple_message(const char *message)
     return buffer;
 }
 
+/** @brief inline wrapper to simplify route validation
+ * */
 static inline int validate_route(const char *url, const char *path)
 {
     return strstr(url, path) != NULL;
