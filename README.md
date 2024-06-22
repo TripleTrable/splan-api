@@ -10,6 +10,15 @@ Wrapper and parser for the StarPlanner API
 - libcurl4-gnutls-dev
 - libmicrohttpd-dev
 
+## Build
+
+Use CMake to build project. Doxygen documentation has to be enabled with:
+
+```
+cmake -DBUILD_WITH_DOCS=ON <...>
+```
+
+and then can be made with the `docs` make target
 
 ## Collaboration
 
